@@ -1,20 +1,48 @@
-// 14-2-sort-array-ingridgobierno.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+const int arraySize = 10;
+
+void mysort(int* unsorted, int* sorted) {
+    for (int i = 0; i < arraySize; ++i) {
+        int minIndex = -1;
+        int minValue = 1000000; 
+
+        // buscar l'element més petit a l'array no ordenat
+        for (int j = 0; j < arraySize; ++j) {
+            if (unsorted[j] < minValue) {
+                minValue = unsorted[j];
+                minIndex = j;
+            }
+        }
+
+        // copiar l'element més petit a l'array ordenat
+        sorted[i] = minValue;
+
+        // marquem aquest element com "utilitzat" posant-li un valor gran
+        unsorted[minIndex] = 1000000;
+    }
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void printArray(const int* a, int size) {
+    for (int i = 0; i < size; i++) {
+        cout << a[i] << " ";
+    }
+    cout << endl;
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+int main() {
+    int u[arraySize] = { 0, 8, 10, 2, 4, 5, 2, 9, 5, 15 };
+    int* s = new int[arraySize];
+
+    printArray(u, arraySize);
+
+    mysort(u, s);
+
+    printArray(s, arraySize);
+
+    // Alliberar la memòria
+    delete[] s;
+
+    return 0;
+}
